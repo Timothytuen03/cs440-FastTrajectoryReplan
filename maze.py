@@ -2,7 +2,7 @@
 # https://github.com/OrWestSide/python-scripts/blob/master/maze.py
 # Wikipedia: https://en.wikipedia.org/wiki/Maze_generation_algorithm#Iterative_randomized_Kruskal's_algorithm_(with_sets)
 # Prim's Alg: https://en.wikipedia.org/wiki/Prim%27s_algorithm
-
+import pickle
 import random
 import time
 from colorama import init
@@ -29,7 +29,7 @@ def printMaze(maze, height, width):
 def create_maze(height, width, maze):
     start_y = int(random.random()*height)
     start_x = int(random.random()*width)
-    print(start_x, start_x)
+    # print(start_x, start_x)
     if start_y == 0:
         start_y += 1
     if start_y == height-1:
@@ -38,7 +38,7 @@ def create_maze(height, width, maze):
         start_x += 1
     if start_x == width-1:
         start_x -= 1
-    print(start_x, start_y)
+    # print(start_x, start_y)
     # Starting Point
     maze[start_x][start_y] = 'p'
     walls.append((start_x-1, start_y))
@@ -50,13 +50,15 @@ def create_maze(height, width, maze):
     maze[start_y][start_x+1] = 'w'
     maze[start_y][start_x-1] = 'w'
 
-    print("make da walls")
+    # print("make da walls")
     make_walls(height,width, maze)
-    print("fill da leftova")
+    # print("fill da leftova")
     leftovers(height, width, maze)
-    print("make da entrance")
-    create_entrance_exit(height, width, maze)
-    print("print da maze!")
+    # print("make da entrance")
+    # create_entrance_exit(height, width, maze)
+    maze[1][1] = 'p'
+    maze[height-2][width-2] = 'p'
+    # print("print da maze!")
     # print_maze(maze)
                 
 
@@ -68,8 +70,8 @@ def make_walls(height, width, maze):
         # rand_wall_num = random.randint(0,len(walls)) - 1
         rand_wall_num = int(random.random()*len(walls))-1
         rand_wall = walls[rand_wall_num]
-        print(walls)
-        print(rand_wall)
+        # print(walls)
+        # print(rand_wall)
         # Check if wall is between two paths
         # 
         if rand_wall[0] != height-1:
@@ -185,20 +187,18 @@ def leftovers(height, width, maze):
             if (maze[i][j] == '?'):
                 maze[i][j] = 'w'
 
-def create_entrance_exit(height, width, maze):
-    for i in range(0, width):
-        if (maze[1][i] == 'p'):
-            maze[0][i] = 'p'
-            break
-    for i in range(width-1, 0, -1):
-        if (maze[height-2][i] == 'p'):
-            maze[height-1][i] = 'p'
-            break
+# def create_entrance_exit(height, width, maze):
+#     for i in range(0, width):
+#         if (maze[1][i] == 'p'):
+#             maze[0][i] = 'p'
+#             break
+#     for i in range(width-1, 0, -1):
+#         if (maze[height-2][i] == 'p'):
+#             maze[height-1][i] = 'p'
+#             break
 
 
-def main():
-    h = int(input())
-    w = int(input())
+def main(h, w):
     maze = init_maze(h, w)
     create_maze(h, w, maze)
     printMaze(maze, h, w)
