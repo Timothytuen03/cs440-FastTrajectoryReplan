@@ -1,6 +1,6 @@
 
 import heapq
-import maze as create
+import mazes.maze as create
 from pathfinding.adaptedA import adaptedDriver
 from pathfinding.forwardA import AForwardDriver
 import display

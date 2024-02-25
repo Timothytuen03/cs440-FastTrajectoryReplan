@@ -4,7 +4,7 @@
 # https://electronstudio.github.io/pygame-zero-book/chapters/maze.html
 
 import heapq
-import maze as create
+import mazes.maze as create
 import pygame
 
 heuristic = [[0 for _ in range(101)] for _ in range(101)]

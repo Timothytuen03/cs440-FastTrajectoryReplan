@@ -7,6 +7,7 @@ import random
 import time
 from colorama import init
 from colorama import Fore, Back, Style
+import numpy as np
 
 walls = []
 def init_maze(ylen, xlen):
@@ -208,8 +209,6 @@ def leftovers(height, width, maze):
 #     return maze
 
 if __name__ == "__main__":
-     ###generate and store mazes#######
-    # delete everything in pickle file defore generating new mazes
     # mazes = [init_maze(101, 101) for _ in range(50)]
     # mazes = []
     # for i in range(50):
@@ -218,11 +217,15 @@ if __name__ == "__main__":
     # print("start making the mazes")
     # for m in mazes:
     #       create_maze(101, 101, m)
-    # #write to file
+          
     # with open("maze.pickle","wb") as outfile:
     #        pickle.dump(mazes,outfile)
-    ##################################
-    # read from file
-    # with open("maze.pickle", "rb") as infile:
-    #     mazes = pickle.load(infile)
-    #     print(mazes)
+    
+    mazes = []
+    with open("maze.pickle", "rb") as infile:
+        mazes = pickle.load(infile)
+        # print(mazes)
+
+    for i in range(50):
+        np.savetxt(f"maze{i}.txt", mazes[i], fmt='%s')
+

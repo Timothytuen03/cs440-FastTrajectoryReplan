@@ -1,6 +1,6 @@
 # Repeated Forward A* that prioritizes smaller g value as tie breakers
 import heapq
-import maze as create
+import mazes.maze as create
 heuristic = [[0 for _ in range(101)] for _ in range(101)]
 
 class PriorityQueue(object):

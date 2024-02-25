@@ -1,7 +1,7 @@
 # Repeated Forward A* that prioritizes larger g value as tie breakers (made g in PQ negative)
 import pickle
 import heapq
-import maze as create
+import mazes.maze as create
 import time as timing
 heuristic = [[0 for _ in range(101)] for _ in range(101)]
 
