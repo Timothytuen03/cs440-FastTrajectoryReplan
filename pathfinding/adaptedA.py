@@ -1,6 +1,8 @@
 import heapq
 import maze as create
-heuristic = [[0 for _ in range(10)] for _ in range(10)]
+import pickle
+import time as timing
+heuristic = [[0 for _ in range(101)] for _ in range(101)]
 
 class PriorityQueue(object):
     def __init__(self) -> None:
@@ -15,7 +17,7 @@ class PriorityQueue(object):
         return len(self.heap) == 0
     
     def add(self, element, g, priority):
-        heapq.heappush(self.heap, (priority, g, element))
+        heapq.heappush(self.heap, (priority, -g, element))
         # self._index += 1
 
     def remove(self):
@@ -180,6 +182,7 @@ def adaptedDriver(maze):
 
 
     loc = (1,1)
+    starting = timing.time()
     while loc != (len(maze)-2, len(maze[0])-2):
         rev_path, close, curr_loc = AdaptedA(maze, loc, explored_maze)
         numExpanded = numExpanded + len(close)
@@ -191,7 +194,35 @@ def adaptedDriver(maze):
         # print("The Plan: ", path)
         new_loc, explored_maze = executeAdapted(path, explored_maze, maze, loc)
         loc = new_loc
-    print("Adapted Maze:")
-    create.printMaze(explored_maze, h, w)
+    # print("Adapted Maze:")
+    # create.printMaze(explored_maze, h, w)
+    # print(numExpanded)
+        
+    ending = timing.time()
+    amtTime = ending - starting
+    return numExpanded, amtTime
     
-    return numExpanded
+
+if __name__ == "__main__":
+    # h = int(input())
+    # w = int(input())
+    # maze = create.main(h, w)
+    # adaptedDriver(maze)
+    mazes = []
+    # Open pre-generated mazes
+    with open("maze.pickle", "rb") as infile:
+        mazes = pickle.load(infile)
+    
+    # for maze in mazes:
+        # AForwardDriver(maze)
+    # create.printMaze(mazes[1], 101, 101)
+
+    with open("adaptRes.txt", "wt") as resFile:
+        total_time = 0
+        total_expand = 0
+        for maze in mazes:
+            numExpand, time = adaptedDriver(maze)
+            total_time = total_time + time
+            total_expand = total_expand + numExpand
+            resFile.write(str(numExpand) + " " + str(time) + "\n")
+        resFile.write(str(total_expand/50) + " " + str(total_time/50))

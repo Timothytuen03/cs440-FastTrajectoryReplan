@@ -1,6 +1,8 @@
-# Repeated Forward A* that prioritizes smaller g value as tie breakers
+# Repeated Forward A* that prioritizes larger g value as tie breakers (made g in PQ negative)
+import pickle
 import heapq
 import maze as create
+import time as timing
 heuristic = [[0 for _ in range(101)] for _ in range(101)]
 
 class PriorityQueue(object):
@@ -130,7 +132,6 @@ def executeAForward(path, limited_maze, maze, loc):
         limited_maze[loc[0]][loc[1]] = 'p'
 
         loc = path[loc]
-        # print(loc)
 
     if loc == (len(maze)-2, len(maze[0])-2):
         return loc, limited_maze
@@ -148,6 +149,8 @@ def AForwardDriver(maze):
 
 
     loc = (1,1)
+    # start = 0
+    starting = timing.time()
     while loc != (len(maze)-2, len(maze[0])-2):
         rev_path, close, curr_loc = BasicA(maze, loc, explored_maze)
         numExpanded = numExpanded + len(close)
@@ -156,17 +159,42 @@ def AForwardDriver(maze):
             break
 
         path = reversePath(rev_path, (len(maze)-2, len(maze[0])-2), loc)
-        # print("The Plan: ", path)
         new_loc, explored_maze = executeAForward(path, explored_maze, maze, loc)
         loc = new_loc
         
-    print("A forward Maze:")
-    create.printMaze(explored_maze, h, w)
+    # create.printMaze(explored_maze, h, w)
 
-    print(numExpanded)
+    ending = timing.time()
+    amtTime = ending - starting
+    return numExpanded, amtTime
+    # print(numExpanded)
 
 if __name__ == "__main__":
-    h = int(input())
-    w = int(input())
-    maze = create.main(h, w)
-    AForwardDriver(maze)
+    # h = int(input())
+    # w = int(input())
+    # maze = create.main(h, w)
+
+    mazes = []
+    # Open pre-generated mazes
+    with open("maze.pickle", "rb") as infile:
+        mazes = pickle.load(infile)
+    
+    # for maze in mazes:
+        # AForwardDriver(maze)
+    # create.printMaze(mazes[1], 101, 101)
+
+    with open("forwardResSmallG.txt", "wt") as resFile:
+        total_time = 0
+        total_expand = 0
+        i = 1
+        for maze in mazes:
+            print("maze ", i)
+            numExpand, time = AForwardDriver(maze)
+            total_time = total_time + time
+            total_expand = total_expand + numExpand
+            resFile.write(str(numExpand) + " " + str(time) + "\n")
+            i = i+1
+        resFile.write(str(total_expand/50) + " " + str(total_time/50))
+
+        
+        

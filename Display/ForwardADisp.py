@@ -2,9 +2,9 @@ import heapq
 import maze as create
 import pygame
 
-heuristic = [[0 for _ in range(10)] for _ in range(10)]
+heuristic = [[0 for _ in range(101)] for _ in range(101)]
 
-num_rows = 10
+num_rows = 101
 
 RED = (255, 0, 0)
 GREEN = (0, 255, 0)
@@ -17,15 +17,16 @@ ORANGE = (255, 165 ,0)
 GREY = (128, 128, 128)
 TURQUOISE = (64, 224, 208)
 
-screen_width, screen_height = 500,500
+screen_width, screen_height = 808,808
 pygame.init()
 sc = pygame.display.set_mode((screen_width, screen_height))
 running = True
 pygame.display.set_caption("A* Path Finding Algorithm")
 clock = pygame.time.Clock()
 
-cell_size = 50
-cols, rows = screen_width//cell_size, screen_height//cell_size
+# cols, rows = screen_width//cell_size, screen_height//cell_size
+cols, rows = num_rows, num_rows
+cell_size = screen_height//num_rows
 
 grid = []
 
@@ -79,12 +80,12 @@ def draw_grid(win, rows, width):
 
 
 
-def make_grid(rows, width):
+def make_grid():
 	grid = []
 	# gap = width // rows
-	for i in range(rows):
+	for i in range(num_rows):
 		grid.append([])
-		for j in range(rows):
+		for j in range(num_rows):
 			spot = grid_cell(i, j, cell_size, cell_size)
             # spot = grid_cell(i, j, cell_size, cell_size)
 			grid[i].append(spot)
@@ -326,10 +327,10 @@ if __name__ == "__main__":
 
     maze = create.main(h, w)
     # display.main(maze, command)
-    grid = make_grid(15, 800)
+    grid = make_grid()
     print("going to draw!")
 
-    draw(sc, grid, 10)
+    draw(sc, grid, num_rows)
     running = True
     while running:
         
