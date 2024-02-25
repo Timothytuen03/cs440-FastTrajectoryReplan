@@ -7,6 +7,7 @@ from queue import Queue
 from colorama import init
 from colorama import Fore, Back, Style
 
+
 def printMaze(maze, height, width):
 	for i in range(0, height):
 		for j in range(0, width):

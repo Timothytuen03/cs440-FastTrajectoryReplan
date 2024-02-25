@@ -11,7 +11,7 @@ from colorama import Fore, Back, Style
 walls = []
 def init_maze(ylen, xlen):
     maze = [['?' for _ in range(xlen)] for _ in range(ylen)]
-    # printMaze(maze, ylen, xlen)
+    printMaze(maze, ylen, xlen)
     return maze
 # Functions
 def printMaze(maze, height, width):
@@ -27,8 +27,6 @@ def printMaze(maze, height, width):
 		print('\n')
 
 def create_maze(height, width, maze):
-    height = int(height)
-    width = int(width)
     start_y = int(random.random()*height)
     start_x = int(random.random()*width)
     # print(start_x, start_x)
@@ -200,29 +198,8 @@ def leftovers(height, width, maze):
 #             break
 
 
-# def main(h, w):
-#     maze = init_maze(h, w)
-#     create_maze(h, w, maze)
-#     printMaze(maze, h, w)
-
-#     return maze
-
-if __name__ == "__main__":
-     ###generate and store mazes#######
-    # delete everything in pickle file defore generating new mazes
-    # mazes = [init_maze(101, 101) for _ in range(50)]
-    # mazes = []
-    # for i in range(50):
-    #     new_maze = init_maze(101,101)
-    #     mazes.append(new_maze)
-    # print("start making the mazes")
-    # for m in mazes:
-    #       create_maze(101, 101, m)
-    # #write to file
-    # with open("maze.pickle","wb") as outfile:
-    #        pickle.dump(mazes,outfile)
-    ##################################
-    # read from file
-    # with open("maze.pickle", "rb") as infile:
-    #     mazes = pickle.load(infile)
-    #     print(mazes)
+def main(h, w):
+    maze = init_maze(h, w)
+    create_maze(h, w, maze)
+    printMaze(maze, h, w)
+    return maze

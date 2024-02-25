@@ -1,13 +1,30 @@
+
+import heapq
 import maze as create
-maze = create.main()
+from pathfinding.adaptedA import adaptedDriver
+from pathfinding.forwardA import AForwardDriver
+import display
 
-def ComputePath():
-
-
-def main():
+def main(command):
     # Initialize start of search
-    counter = 0
-    # Call A* whenever run into a wall
-    while true:
-        if wall:
-            ComputePath()
+    # h = int(input())
+    # w = int(input())
+    h = 10
+    w = 10
+
+    maze = create.main(h, w)
+    # display.main(maze, command)
+    
+
+
+         
+
+    # forExpanded = AForwardDriver(maze)
+    # adaptExpanded = adaptedDriver(maze)
+
+    # print("forward expanded num: ", forExpanded)
+    # print("adapted expanded num: ", adaptExpanded)
+
+    print("maze solved")
+    
+    

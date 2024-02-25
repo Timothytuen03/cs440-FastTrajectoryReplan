@@ -1,0 +1,9 @@
+Tie Breakers??
+Counters??
+
+Need to save the 50 and run analysis on each of them
+Install a counter too to see how long each takes (use numpy?)
+
+Forward A Expansions: 579,155
+Backward A Expansions: 1,383,145
+Adapted A Expansions: 495,503
